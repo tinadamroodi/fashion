@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/splide.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <?php include("header.php");?>
+  <main class="container">
+    <div class="row h-filters">
+      <div class="col-2-10">&nbsp</div>
+      <div class="col-4-10">
+        <span>SORT BY: </span>
+        <input type="radio" name="sort" class="filter_all sort" value="default" checked> default
+          <input type="radio" name="sort" class="filter_all sort" value="pflh"> price from low to high
+          <input type="radio" name="sort" class="filter_all sort" value="pfhl"> price from high to low
+      </div>
+      <div class="col-4-10">
+        <span>SORT BY: </span>
+        <input type="radio" name="sortbyrate" class="filter_all sortbyrate" value="default" checked> default
+          <input type="radio" name="sortbyrate" class="filter_all sortbyrate" value="pflh"> rate from low to high
+          <input type="radio" name="sortbyrate" class="filter_all sortbyrate" value="pfhl"> rate from high to low
+      </div>
+    </div>
+    <div class="row">
+    <aside class="col-2-10 mg-r-0">
+      <h2>Filter by Promotion</h2>
+
+      <p>
+        <p>
+          <input type="checkbox" class="filter_all sale" id="s-sale" name="sale" value="sale">
+          <label for="s-sale">on-sale</label>
+        </p>
+      </p>
+
+      <hr>
+      <h2>Filter by Category</h2>
+
+      <p>
+        <?php foreach($category as $rowCategory):?>
+          <p>
+            <input type="checkbox" class="filter_all category" id="s-<?=$rowCategory['name']?>" name="category" value="<?=$rowCategory['id']?>"
+            <?php if (isset($_GET['category'])){
+              if($rowCategory['name']==$_GET['category']){
+                echo 'checked>';
+              }
+              else{
+                echo '>';
+              }
+            }
+            else{
+              echo '>';
+            }?>
+            <label for="s-<?=$rowCategory['name']?>"><?=$rowCategory['name']?></label>
+          </p>
+        <?php endforeach;?>
+      </p>
+
+      <hr>
+      <h2>Filter by Price</h2>
+
+      <p>
+        <?php foreach($price as $rowPrice):?>
+          From <input type="input" class="filter_all min" name="min" value="<?=$rowPrice['MIN(price)']?>"> to <input type="input" class="filter_all max" name="max" value="<?=$rowPrice['MAX(price)']?>">
+        <?php endforeach;?>
+      </p>
+
+      <hr>
+      <h2>Filter by size</h2>
+      <?php foreach($size as $rowSize):?>
+        <p>
+          <input type="checkbox" class="filter_all size" id="s-<?=$rowSize['productSize']?>" name="size" value="<?=$rowSize['productSize']?>">
+          <label for="s-<?=$rowSize['productSize']?>"><?=$rowSize['productSize']?></label>
+        </p>
+      <?php endforeach;?>
+      <hr>
+      <h2>Filter by color</h2>
+      <?php foreach($color as $rowColor):?>
+        <p>
+          <input type="checkbox" class="filter_all color" id="s-<?=$rowColor['colorId']?>" name="color" value="<?=$rowColor['colorId']?>">
+          <span class="color-filter" style="background:<?= $rowColor['colorCode'];?>;"></span>
+        </p>
+      <?php endforeach;?>
+      <hr>
+    </aside>
+
+
+
+
+
+
+
+    <div id="products-grid" class="col-8-10 mg-l-0 filter">
+
+    </div>
+
+</div>
+
+  </main>
+
+  <?php include('footer.php')?>
+
+  <script src="js/main.js" charset="utf-8"></script>
+  <script src="js/jquery-3.5.1.min.js" charset="utf-8"></script>
+  <script>
+  $(document).ready(function(){
+    filter_data();
+    function filter_data(){
+      $('.filter_data');
+      var action = 'fetch_data';
+      var size = get_filter('size');
+      var color = get_filter('color');
+      var category = get_filter('category');
+      var sale = get_filter('sale');
+      var min =$('.min').val();
+      var max = $('.max').val();
+      var sort = get_filter('sort');
+      var sortbyrate = get_filter('sortbyrate')
+      $.ajax({
+        type: "POST",
+        url:"fetch.php",
+        data:{
+          'action':action,
+          'sale':sale,
+          'size':size,
+          'color':color,
+          'category':category,
+          'min' :min,
+          'max':max,
+          'sort':sort,
+          'sortbyrate': sortbyrate
+
+        }
+      })
+      .done(function(data){
+        console.log("success");
+        $('.filter').html(data);//after it gets done and everything has loaded
+        var offset = $('#products-grid').offset();//u take offset of this product-grid
+        $('html, body').stop().animate({scrollTop:offset.top},500);//go there with html (in html, body will stand there!by animation in 500 ms)
+      })
+      .fail(function(){
+        console.log("fail");
+        alert("error");
+      })
+    }
+    function get_filter(class_name){
+      var filter = [];
+      $('.'+class_name+':checked').each(function(){
+        filter.push($(this).val());
+      });
+      return filter;
+    }
+    $('.filter_all').click(function(){
+      filter_data();
+    });
+  });
+
+
+</script>
+</body>
+</html>
