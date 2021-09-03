@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <title>Tina Shop</title>
+  <!--Meta descriptions for SEO purposes -->
+  <meta name="description" content="Online Shopping for Women. Shop Online from a wide range of womens clothing, shoes, Ladies bags & more in Paris">
+  <meta name="author" content="Tina Damroodi">
+  <!--Meta viewport for responsive web design -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- include css styles -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/splide.min.css">
+  <!-- load Robot fonts from googler webfonts-->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- include header from header.php-->
+  <?php include("header.php");?>
+  <main>
+      <!-- Slideshow section-->
+    <div class="slideshow-container">
+      <div class="slides fade">
+        <div class="page-number">
+          1/3
+        </div>
+        <img class="img-responsive" src="images/slide1.jpg" alt="slide-1">
+      </div>
+      <div class="slides fade">
+        <div class="page-number">
+          2/3
+        </div>
+        <img class="img-responsive" src="images/slide5.jpg" alt="slide-2">
+      </div>
+      <div class="slides fade">
+        <div class="page-number">
+          3/3
+        </div>
+        <img class="img-responsive" src="images/slide4.jpg" alt="slide-3">
+      </div>
+      <a id="prev" class="prev" onclick="backPrev(-1)">&#8592;</a>
+      <a id="next" class="next"  onclick="backPrev(+1)">&#8594;</a>
+    </div>
+    <section id="new-arrivals" class="container clearfix">
+        <!-- New arrival section-->
+      <div class="seperator"><h1>New Arrivals</h1></div>
+      <div class="row">
+      <?php foreach($products as $row):?>
+          <div class="col-2-10">
+            <div class="image-hover-zoom">
+              <img class="img-responsive" src="images/<?=$row['productPhoto']?>" alt="">
+            </div>
+            <h3><a href="single-product.php?id=<?=$row['id']?>"><?=$row['productName']?></a></h3>
+            <p class="price"><?php if($row['off']>0){
+              echo '<del><span class="sale">'.$row['price'].'$</span></del>';
+            }else{
+              echo $row['price'].'$';
+            }
+            ?>
+            <?php if($row['off']>0){
+              $priceAfterOff = $row['price']-(($row['price']*$row['off'])/100);
+              echo $priceAfterOff.'$';
+            }?>
+          </p>
+          <a href="#" class="add-to-cart-button">Add to cart</a>
+        </div>
+      <?php endforeach;?>
+    </div>
+  </section>
+    <!-- get banners frin DB-->
+<?php foreach($designs as $banner):?>
+  <section id="banner" class="container clearfix">
+
+    <div class="row">
+        <img class="img-responsive" src="images/<?=$banner['bannerPhoto']?>" alt="">
+    </div>
+  </section>
+<?php endforeach;?>
+  <!-- best selling section-->
+  <section id="bestselling" class="container clearfix">
+    <div class="seperator"><h1>weekly bestselling</h1></div>
+    <div class="row">
+      <?php foreach($weeklyBest as $wbs):?>
+      <div class="col-2-10">
+        <a href="single-product.php?id=<?= $wbs['productId']?>"><img class="img-responsive" src="images/<?= $wbs['productPhoto']?>" alt=""></a>
+
+        <a href="single-product.php?id=<?= $wbs['productId']?>"><h3><?= $wbs['productName']?></h3></a>
+        <p class="price"><?php if($wbs['off']>0){
+          echo '<del><span class="sale">'.$wbs['price'].'$</span></del>';
+        }else{
+          echo $wbs['price'].'$';
+        }
+        ?>
+        <?php if($wbs['off']>0){
+          $priceAfterOff = $wbs['price']-(($wbs['price']*$wbs['off'])/100);
+          echo $priceAfterOff.'$';
+        }?>
+      </p>
+      <a href="single-product.php?id=<?= $wbs['productId']?>" class="add-to-cart-button">Add to cart</a>
+      </div>
+    <?php endforeach;?>
+    </div>
+  </section>
+    <!-- latest Blog posts from DB-->
+  <section id="blog" class="container clearfix">
+    <div class="seperator"><h1>Our blogs</h1></div>
+    <div class="row">
+      <?php foreach($blogs as $row):?>
+        <div class="col-5-10">
+          <div class="row">
+            <div class="col-5-10">
+              <img class="img-responsive" src="images/<?=$row['photo']?>" alt="">
+            </div>
+            <div class="col-5-10">
+              <h3><?=$row['title']?></h3>
+              <p><?= substr($row['content'],0,50)?></p>
+              <a class="read-more" href="single-post.php?post=<?=$row['id']?>">Read more<i class="icon-long-arrow-right"></i></a>
+            </div>
+          </div>
+        </div>
+      <?php endforeach;?>
+    </div>
+  </section>
+</div>
+</div>
+</section>
+  <!-- Brand logos from DB-->
+<section id="fashion-logo" class="container clearfix">
+  <div class="seperator"><h1>Brands</h1></div>
+  <div class="row">
+    <?php foreach($brands as $row):?>
+      <div class="col-2-10">
+        <img class="img-responsive" src="images/<?=$row['logo']?>" alt="">
+      </div>
+    <?php endforeach;?>
+  </div>
+</section>
+
+
+</main>
+
+<?php include('footer.php')?>
+
+
+<script src="js/main.js" charset="utf-8"></script>
+<?php if(isset($_GET['login'])){
+  if($_GET['login']=='fail'){
+  echo '<script type="text/javascript">modal();</script>';
+  }
+}?>
+</body>
+</html>
