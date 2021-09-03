@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <?php include 'header.php';?>
+  <main>
+    <div class="container">
+      <div class="row">
+        <div class="col-5-10">
+          <?php foreach($result as $row):?>
+          <h2>Update your profile</h2>
+          <p>Please fill the below form to update the existing data</p>
+          <form id="profile-form" class="" action="profile.php" method="post">
+            <div class="">
+
+            <input type="hidden" name="id" value="<?=$row['id']?>">
+            <label for="">First Name</label>
+            <p><input class="form-control" type="text" id="firstName" name="firstName" placeholder="<?=$row['firstName']?>"></p>
+            <label for="">Last Name</label>
+            <p><input class="form-control" type="text" id="lastName" name="lastName" placeholder="<?=$row['lastName']?>"></p>
+            <label for="">Email</label>
+            <p><input class="form-control" type="text" id="email" name="email" placeholder="<?=$row['email']?>"></p>
+            <label for="">Password</label>
+            <p><input class="form-control" type="password" id="password" name="password" placeholder="<?=$row['password']?>"></p>
+            <label for="">Phone Number</label>
+            <p><input class="form-control" type="text" id="phoneNumber" name="phoneNumber" placeholder="<?=$row['phoneNumber']?>"></p>
+            <label for="">Address</label>
+            <p><input class="form-control" type="text" id="address" name="address" placeholder="<?=$row['address']?>"></p>
+            <input class="" type="submit" value="Edit">
+            </div>
+            </form>
+            <?php endforeach;?>
+          </div>
+          <div class="col-5-10">
+            <h2>Your orders</h2>
+            <ul class="order-history">
+            <?php foreach ($orders as $order):?>
+              <li><?=$order['saleDate']?>: <?=$order['productName']?> - <?=$order['orderAmount']?></li>
+            <?php endforeach;?>
+          </ul>
+          </div>
+        </div>
+      </div>
+    </main>
+
+  <?php include 'footer.php';?>
+</body>
+</html>
