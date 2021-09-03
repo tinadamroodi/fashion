@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <?php include("header.php")?>
+  <main>
+    <div class="container">
+
+<?php include('breadcrumb.php')?>
+
+    </div>
+
+      <section id="grid-blog" class="clearfix">
+        <div class="container">
+          <div class="row">
+            <?php foreach($post as $row):?>
+
+            <div class="col-2-5-10 mg-l-0">
+              <div class="post-image">
+                <img class="img-responsive" src="images/<?= $row['photo']?>" alt="">
+              </div>
+                  <div class="post-content">
+                    <h3><?= $row['title']?></h3>
+                    <p><?= substr($row['content'],0,30)?></p>
+                  </div>
+                  <a href="single-post.php?post=<?=$row['id']?>" class="read-more-button">Read more</a>
+
+            </div>
+<?php endforeach;?>
+          </div>
+
+        </div>
+      </section>
+
+
+
+
+
+
+
+
+
+
+  </main>
+
+  <?php include("footer.php");?>
+
+<script src="js/main.js" charset="utf-8"></script>
+</body>
+</html>
