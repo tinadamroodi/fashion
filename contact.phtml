@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/splide.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+<?php include("header.php");?>
+
+
+
+<div class="container">
+  <?php if($thanks==true)
+  {
+    echo '<div class="row sent-message">Thank you for your message, our experts will answer you shortly.</div>';
+  }?>
+<div class="row">
+<div class="col-5-10">
+
+<h2>Contact Form</h2>
+Plese complete the following form. Our experts will call you in their first convinient time.
+
+    <form id="contact-form" action="contact.php" method="post">
+      <p>
+    <label for="fname">First Name</label>
+    <input type="text" id="fname" name="fname" placeholder="Your name..">
+    <?php if(!(empty($fnameError))){
+      echo '<span class="error">'.$fnameError.'</span>';
+      }
+    ?>
+</p>
+<p>
+    <label for="lname">Last Name</label>
+    <input type="text" id="lname" name="lname" placeholder="Your last name..">
+    <?php if(!(empty($lnameError))){
+      echo '<span class="error">'.$lnameError.'</span>';
+      }
+    ?>
+</p>
+<p>
+    <label for="lname">Email</label>
+    <input type="text" id="email" name="email" placeholder="example: tina@gamil.com">
+    <?php if(!(empty($emailError))){
+      echo '<span class="error">'.$emailError.'</span>';
+      }
+    ?>
+</p>
+
+<p>
+    <label for="subject">Subject</label>
+    <textarea id="subject" name="subject" placeholder="Write something.." style="height:200px"></textarea>
+    <?php if(!(empty($subjectError))){
+      echo '<span class="error">'.$subjectError.'</span>';
+      }
+    ?>
+</p>
+    <input type="submit" value="Submit">
+  </form>
+  </div>
+  <div class="col-5-10">
+<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d84030.34050355163!2d2.3043289342873763!3d48.840127871049084!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x8b93cdb05efe94cc!2sDamart!5e0!3m2!1sen!2sfr!4v1604240822025!5m2!1sen!2sfr" width="595" height="300" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+<div class="phone">
+
+<p><svg width="20px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="#777" d="M256 32C114.517 32 0 146.497 0 288v51.429a16.003 16.003 0 0 0 8.213 13.978l23.804 13.262c-.005.443-.017.886-.017 1.331 0 61.856 50.144 112 112 112h24c13.255 0 24-10.745 24-24V280c0-13.255-10.745-24-24-24h-24c-49.675 0-91.79 32.343-106.453 77.118L32 330.027V288C32 164.205 132.184 64 256 64c123.796 0 224 100.184 224 224v42.027l-5.547 3.09C459.79 288.343 417.676 256 368 256h-24c-13.255 0-24 10.745-24 24v176c0 13.255 10.745 24 24 24h24c61.856 0 112-50.144 112-112 0-.445-.012-.888-.017-1.332l23.804-13.262A16.002 16.002 0 0 0 512 339.428V288c0-141.482-114.497-256-256-256zM144 288h16v160h-16c-44.112 0-80-35.888-80-80s35.888-80 80-80zm224 160h-16V288h16c44.112 0 80 35.888 80 80s-35.888 80-80 80z"></path></svg>
+ Need help?</p>
+ <p>
+   Contact us by phone:
+   We are available from Monday to Saturday,
+   8 a.m. to 8 p.m. excluding public holidays.
+</p>
+<p>Call us: <a class='callus' href="tel:0892435465">0892 435465</a></p>
+</div>
+  </div>
+</div>
+</div>
+
+<?php include("footer.php");?>
+<script src="js/main.js" charset="utf-8"></script>
+</body>
+
+</html>
