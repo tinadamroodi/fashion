@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <?php include("header.php")?>
+  <main>
+    <div class="container">
+    <?php foreach($post as $row):?>
+<?php include('breadcrumb.php')?>
+
+    </div>
+
+      <section id="single-post" class="clearfix">
+        <div class="container">
+
+          <div class="row">
+            <div class="col-7-10 mg-l-0">
+              <div class="post-image">
+                <img class="img-responsive" src="images/<?= $row['photo']?>" alt="">
+              </div>
+              <div class="row">
+                  <div class="post-content">
+                    <?= $row['content']?>
+                  </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+    <?php endforeach;?>
+
+
+
+
+
+
+
+
+
+  </main>
+
+  <?php include("footer.php");?>
+
+
+</body>
+</html>
